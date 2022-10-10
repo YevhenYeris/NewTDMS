@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewTDBMS.LocalAdapter\NewTDBMS.LocalAdapter.csproj" />
+    <ProjectReference Include="..\NewTDMS.API\NewTDBMS.API.csproj" />
+    <ProjectReference Include="..\NewTDMS.Service\NewTDBMS.Service.csproj" />
+    <ProjectReference Include="..\NewTDMS\NewTDBMS.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DB>
+  <Name>NewDB</Name>
+  <Table>
+    <Name>NewTable</Name>
+    <Column>
+      <Name>ChangedColumn</Name>
+      <Type>NewType</Type>
+    </Column>
+    <Row>
+      <Id>0</Id>
+      <Item>NewValue</Item>
+    </Row>
+    <Row>
+      <Id>1</Id>
+      <Item>NewValue1</Item>
+    </Row>
+    <Row>
+      <Id>3</Id>
+      <Item>string</Item>
+    </Row>
+  </Table>
+  <Table>
+    <Name>string1</Name>
+    <Column>
+      <Name>string1</Name>
+      <Type>string</Type>
+    </Column>
+    <Row>
+      <Id>0</Id>
+      <Item>41231.12-321312.12</Item>
+    </Row>
+  </Table>
+  <Table>
+    <Name>string2</Name>
+    <Column>
+      <Name>string1</Name>
+      <Type>Integer</Type>
+    </Column>
+    <Row>
+      <Id>0</Id>
+      <Item>123</Item>
+    </Row>
+  </Table>
+</DB>
