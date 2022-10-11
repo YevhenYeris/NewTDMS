@@ -16,8 +16,8 @@
 ## Опис виконаних етапів
 
 Опис окремих виконаних етапів можна знайти за посиланнями:
-- *[Етап 2](https://github.com/YevhenYeris/NewTDMS/new/master/docs/2.md)*
-- *[Етап 10](https://github.com/YevhenYeris/NewTDMS/new/master/docs/10.md)*
-- *[Етап 18](https://github.com/YevhenYeris/NewTDMS/new/master/docs/18.md)*
+- *[Етап 2](https://github.com/YevhenYeris/NewTDMS/blob/master/docs/2.md)*
+- *[Етап 10](https://github.com/YevhenYeris/NewTDMS/blob/master/docs/10.md)*
+- *[Етап 18]https://github.com/YevhenYeris/NewTDMS/blob/master/docs/18.md)*
 
-Додаткові матеріали у вигляді таблиць і схем знаходяться у папці *[img](https://github.com/YevhenYeris/NewTDMS/new/master/img/)*.
+Додаткові матеріали у вигляді таблиць і схем знаходяться у папці *[img](https://github.com/YevhenYeris/NewTDMS/blob/master/img/)*.
