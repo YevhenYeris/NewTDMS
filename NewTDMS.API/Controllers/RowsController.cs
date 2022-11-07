@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NewTDBMS.Domain.Entities;
 using NewTDBMS.Service;
+using NewTDBMS.Service.Validation;
 
 namespace NewTDBMS.API.Controllers;
 
@@ -31,8 +32,14 @@ public class RowsController : ControllerBase
 	{
 		if (!_service.TableExists(dBName, tableName)) return NotFound();
 
-		//VALIDATE ROW
-		_service.AddRow(dBName, tableName, row);
+		try
+		{
+			_service.AddRow(dBName, tableName, row);
+		}
+		catch(ValidationException ex)
+		{
+			return BadRequest($"Validation error: {ex.Message}");
+		}
 
 		return Ok();
 	}

@@ -40,5 +40,7 @@ public interface ITDBMSService
 
 	public void RenameColumn(string dBName, string tableName, string oldName, string newName);
 
+	public void CreateColumn(string dBName, string tableName, Column column);
+
 	public bool ColumnExists(string dBName, string tableName, string columnName);
 }

@@ -26,18 +26,13 @@ public class ColumnsController : ControllerBase
 		return Ok();
 	}
 
-	[HttpGet("test")]
-	public IActionResult GetTest([FromQuery] Model model)
+	[HttpPost]
+	public IActionResult Post(string dBName, string tableName, Column column)
 	{
+		if (!_serice.TableExists(dBName, tableName)) return NotFound();
+
+		_serice.CreateColumn(dBName, tableName, column);
+
 		return Ok();
 	}
-}
-
-public class Model
-{
-	public string UserId { get; set; } = string.Empty;
-
-    public int GroupId { get; set; }
-
-    public DateTime StartOfWeek { get; set; }
 }

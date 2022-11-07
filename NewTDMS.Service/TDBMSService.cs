@@ -116,6 +116,17 @@ public class TDBMSService : ITDBMSService
 		_dbContext.SaveDB(dBName);
 	}
 
+	public void CreateColumn(string dBName, string tableName, Column column)
+	{
+		if (ColumnExists(dBName, tableName, column.Name)) return;
+
+		var table = GetTable(dBName, tableName);
+		table.Columns.Add(column);
+		table.Rows.ForEach(r => r.Values.Add(string.Empty));
+
+		_dbContext.SaveDB(dBName);
+	}
+
 	public bool ColumnExists(string dBName, string tableName, string columnName)
 	{
 		if (!TableExists(dBName, tableName)) return false;

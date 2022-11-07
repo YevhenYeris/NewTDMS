@@ -15,16 +15,37 @@
   <Table>
     <Name>string1</Name>
     <Column>
-      <Name>12345</Name>
+      <Name>54321</Name>
       <Type>$</Type>
+    </Column>
+    <Column>
+      <Name>money</Name>
+      <Type>$Invl</Type>
     </Column>
     <Row>
       <Id>0</Id>
       <Item>12345</Item>
+      <Item></Item>
     </Row>
     <Row>
       <Id>1</Id>
       <Item>67213123</Item>
+      <Item></Item>
+    </Row>
+    <Row>
+      <Id>0</Id>
+      <Item>1</Item>
+      <Item>1-2</Item>
+    </Row>
+    <Row>
+      <Id>0</Id>
+      <Item>1123</Item>
+      <Item>1123.31-214123.13</Item>
+    </Row>
+    <Row>
+      <Id>0</Id>
+      <Item>123</Item>
+      <Item>123-1234</Item>
     </Row>
   </Table>
 </DB>
