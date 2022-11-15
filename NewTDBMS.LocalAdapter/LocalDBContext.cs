@@ -8,7 +8,8 @@ namespace NewTDBMS.LocalAdapter;
 
 public class LocalDBContext : IDBContext
 {
-	private readonly string _dbPathsFile = "./databases/allpaths.txt";
+	private readonly string _databasesPath = "D:\\sandbox\\NewTDMS\\NewTDBMS.LocalAdapter\\";
+	private readonly string _dbPathsFile = "databases\\allpaths.txt";
 
 	private int _dBsCount = 0;
 
@@ -16,6 +17,7 @@ public class LocalDBContext : IDBContext
 
 	public LocalDBContext()
 	{
+		_dbPathsFile = _databasesPath + _dbPathsFile;
 		ReadDBPaths();
 	}
 
@@ -42,7 +44,9 @@ public class LocalDBContext : IDBContext
 				var dBPath = ln.Substring(ln.IndexOf(" ") + 1);
 				_databases[dBName] = dBPath;
 				++_dBsCount;
-			}  
+			}
+
+			file.Close();
 		}
 	}
 
@@ -63,6 +67,9 @@ public class LocalDBContext : IDBContext
 			{
 				file.WriteLine($"{item.Key} {item.Value}");
 			}
+
+			file.Flush();
+			file.Close();
 		}
 	}
 
@@ -70,7 +77,7 @@ public class LocalDBContext : IDBContext
 	{
 		if (!_databases.ContainsKey(dBName)) throw new ArgumentException(dBName);
 
-		using (TextReader file = new StreamReader(_databases[dBName]))
+		using (TextReader file = new StreamReader(_databasesPath + _databases[dBName]))
 		{
 			XElement dBEl = XElement.Load(file);
 
@@ -90,7 +97,7 @@ public class LocalDBContext : IDBContext
 			
 			dB.Tables = tables.ToList();
 			DBs.Add(dB);
-
+			file.Close();
 			return dB;
 		}
 	}
@@ -112,7 +119,7 @@ public class LocalDBContext : IDBContext
 		var dB = DBs.Where(db => db.Name == dBName).FirstOrDefault();
 		if (dB is null) return;
 
-		var path = _databases.ContainsKey(dB.Name) ? _databases[dB.Name] : String.Empty;
+		var path = _databases.ContainsKey(dB.Name) ? _databasesPath + _databases[dB.Name] : String.Empty;
 
 			if (!path.Any())
 			{

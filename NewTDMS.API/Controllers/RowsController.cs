@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewTDBMS.API.Hateoas.Models;
+using NewTDBMS.API.Hateoas.Services;
 using NewTDBMS.Domain.Entities;
 using NewTDBMS.Service;
 using NewTDBMS.Service.Validation;
@@ -11,10 +13,14 @@ namespace NewTDBMS.API.Controllers;
 public class RowsController : ControllerBase
 {
 	private ITDBMSService _service;
+	private readonly RowLinkGetter _rowLinkGetter;
 
-	public RowsController(ITDBMSService service)
+	public RowsController(
+		ITDBMSService service,
+		RowLinkGetter rowLinkGetter)
 	{
 		_service = service;
+		_rowLinkGetter = rowLinkGetter;
 	}
 
 	[HttpGet]
@@ -24,7 +30,9 @@ public class RowsController : ControllerBase
 
 		if (rows is null) return NotFound();
 
-		return Ok(rows);
+		var result = rows.Select(row => new HateoasModelWrapper<Row>(row, _rowLinkGetter.GetLinks(dBName, tableName, row.Id)));
+
+		return Ok(result);
 	}
 
 	[HttpPost]

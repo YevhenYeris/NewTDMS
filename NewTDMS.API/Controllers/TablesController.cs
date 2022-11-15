@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewTDBMS.API.Hateoas.Models;
+using NewTDBMS.API.Hateoas.Services;
 using NewTDBMS.Domain.Entities;
 using NewTDBMS.Service;
 using NewTDBMS.Service.Validation;
@@ -11,10 +13,14 @@ namespace NewTDBMS.API.Controllers;
 public class TablesController : ControllerBase
 {
 	private ITDBMSService _service;
+	private readonly TableLinkGetter _tableLinkGetter;
 
-	public TablesController(ITDBMSService service)
+	public TablesController(
+		ITDBMSService service,
+		TableLinkGetter tableLinkGetter)
 	{
 		_service = service;
+		_tableLinkGetter = tableLinkGetter;
 	}
 
 	[HttpGet()]
@@ -24,7 +30,9 @@ public class TablesController : ControllerBase
 
 		if (!tables.Any()) return NotFound();
 
-		return Ok(tables);
+		var result = tables.Select(table => new HateoasModelWrapper<string>(table, _tableLinkGetter.GetLinks(dBName, table)));
+
+		return Ok(result);
 	}
 
 	[HttpGet("{tableName}")]
@@ -35,8 +43,10 @@ public class TablesController : ControllerBase
 			var table = _service.GetTable(dBName, tableName);
 
 			if (table is null) return NotFound();
+
+			var result = new HateoasModelWrapper<Table>(table, _tableLinkGetter.GetLinks(dBName, table.Name));
 	
-			return Ok(table);
+			return Ok(result);
 		}
 		catch(ArgumentException)
 		{

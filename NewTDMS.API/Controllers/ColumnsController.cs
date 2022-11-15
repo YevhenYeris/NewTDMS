@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Grpc.Net.Client;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewTDBMS.API.Hateoas.Services;
 using NewTDBMS.Domain.Entities;
+using NewTDBMS.gRPC;
 using NewTDBMS.Service;
 
 namespace NewTDBMS.API.Controllers;
@@ -10,20 +13,51 @@ namespace NewTDBMS.API.Controllers;
 public class ColumnsController : ControllerBase
 {
 	private ITDBMSService _serice;
+	private ColumnLinkGetter _colLinkGetter;
+	private readonly string _gRPCAddress = "https://localhost:7159";
 	
-	public ColumnsController(ITDBMSService service)
+	public ColumnsController(
+		ITDBMSService service,
+		ColumnLinkGetter columnLinkGetter)
 	{
 		_serice = service;
+		_colLinkGetter = columnLinkGetter;
 	}
 
 	[HttpPut("columnName")]
-	public IActionResult Put(string dBName, string tableName, string columnName, [FromBody] string newName)
+	public async Task<IActionResult> PutAsync(string dBName, string tableName, string columnName, [FromBody] string newName)
 	{
-		if (!_serice.ColumnExists(dBName, tableName, columnName)) return NotFound();
+		using (var channel = GrpcChannel.ForAddress(_gRPCAddress))
+		{
+			var client = new Columns.ColumnsClient(channel);
+			var columnExistsReply = await client.ColumnExistsAsync(new ColumnExistsRequest()
+			{
+				DBName = dBName,
+				TableName = tableName,
+				ColumnName = columnName,
+			});
 
-		_serice.RenameColumn(dBName, tableName, columnName, newName);
+			if (!columnExistsReply.ColumnExists)
+			{
+				return NotFound();
+			}
 
-		return Ok();
+			await client.RenameColumnAsync(new RenameColumnRequest()
+			{
+				DBName = dBName,
+				TableName = tableName,
+				ColumnName = columnName,
+				NewName = newName,
+			});
+
+			return Ok();
+		}
+
+		//if (!_serice.ColumnExists(dBName, tableName, columnName)) return NotFound();
+
+		//_serice.RenameColumn(dBName, tableName, columnName, newName);
+
+		//return Ok();
 	}
 
 	[HttpPost]

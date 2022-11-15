@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewTDBMS.API.Hateoas.Models;
+using NewTDBMS.API.Hateoas.Services;
 using NewTDBMS.Domain.Entities;
 using NewTDBMS.Service;
 
@@ -9,11 +11,15 @@ namespace NewTDBMS.API.Controllers;
 [ApiController]
 public class DBsController : ControllerBase
 {
-	private ITDBMSService _service;
+	private readonly ITDBMSService _service;
+	private readonly DBLinkGetter _dBLinkGetter;
 
-	public DBsController(ITDBMSService service)
+	public DBsController(
+		ITDBMSService service,
+		DBLinkGetter dBLinkGetter)
 	{
 		_service = service;
+		_dBLinkGetter = dBLinkGetter;
 	}
 
 	[HttpGet]
@@ -22,8 +28,11 @@ public class DBsController : ControllerBase
 		var dBs = _service.GetDBNames();
 
 		if (!dBs.Any()) return NotFound();
+		
+		var result = dBs.Select(db => 
+			new HateoasModelWrapper<string>(db, _dBLinkGetter.GetLinks(db)));
 
-		return Ok(dBs);
+		return Ok(result);
 	}
 
 	[HttpPost("{dBName}")]

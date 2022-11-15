@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "NewTDBMS.gRPC";
+
+package column;
+
+service Columns {
+  rpc ColumnExists (ColumnExistsRequest) returns (ColumnExistsReply);
+  rpc RenameColumn (RenameColumnRequest) returns (RenameColumnReply);
+}
+
+message ColumnExistsRequest {
+  string dBName = 1;
+  string tableName = 2;
+  string columnName = 3;
+}
+
+message ColumnExistsReply {
+  bool columnExists = 1;
+}
+
+message RenameColumnRequest {
+    string dBName = 1;
+    string tableName = 2;
+    string columnName = 3;
+    string newName = 4;
+}
+
+message RenameColumnReply {
+}

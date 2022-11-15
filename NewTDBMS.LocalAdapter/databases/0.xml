@@ -4,7 +4,7 @@
   <Table>
     <Name>NewTable</Name>
     <Column>
-      <Name>ChangedColumn</Name>
+      <Name>NewColumn</Name>
       <Type>NewType</Type>
     </Column>
     <Row>
