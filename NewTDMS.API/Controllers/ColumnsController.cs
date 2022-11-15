@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewTDBMS.API.Hateoas.Services;
 using NewTDBMS.Domain.Entities;
-using NewTDBMS.gRPC;
+using NewTDBMS.API;
 using NewTDBMS.Service;
 
 namespace NewTDBMS.API.Controllers;

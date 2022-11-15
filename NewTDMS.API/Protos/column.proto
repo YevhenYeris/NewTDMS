@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "NewTDBMS.gRPC";
+option csharp_namespace = "NewTDBMS.API";
 
 package column;
 

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewTDBMS.Console", "NewTDBM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewTDBMS.RelationalAdapter", "NewTDBMS.RelationalAdapter\NewTDBMS.RelationalAdapter.csproj", "{6EF3D2B2-6F29-4564-A5AF-C8573A1C29C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewTDBMS.gRPC", "NewTDBMS.gRPC\NewTDBMS.gRPC.csproj", "{3CA555D8-8DF8-4B19-B61D-4451AC19F3DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewTDBMS.gRPC", "NewTDBMS.gRPC\NewTDBMS.gRPC.csproj", "{3CA555D8-8DF8-4B19-B61D-4451AC19F3DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewTDBMS.Tests", "NewTDBMS.IntegrationTests\NewTDBMS.Tests.csproj", "{99E40C25-EA28-4741-BD53-DCF65EEF86B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{3CA555D8-8DF8-4B19-B61D-4451AC19F3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CA555D8-8DF8-4B19-B61D-4451AC19F3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CA555D8-8DF8-4B19-B61D-4451AC19F3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E40C25-EA28-4741-BD53-DCF65EEF86B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E40C25-EA28-4741-BD53-DCF65EEF86B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E40C25-EA28-4741-BD53-DCF65EEF86B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E40C25-EA28-4741-BD53-DCF65EEF86B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

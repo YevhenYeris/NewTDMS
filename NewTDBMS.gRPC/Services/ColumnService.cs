@@ -6,14 +6,10 @@ using NewTDBMS.Service;
 public class ColumnService : Columns.ColumnsBase
 {
     private readonly ITDBMSService _tDBMSService;
-    private readonly ILogger<GreeterService> _logger;
 
-    public ColumnService(
-        ITDBMSService tDBMSService,
-        ILogger<GreeterService> logger)
+    public ColumnService(ITDBMSService tDBMSService)
     {
         _tDBMSService = tDBMSService;
-        _logger = logger;
     }
 
     public override Task<ColumnExistsReply> ColumnExists(ColumnExistsRequest request, ServerCallContext context)
