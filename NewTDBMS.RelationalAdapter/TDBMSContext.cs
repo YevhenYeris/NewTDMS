@@ -28,9 +28,9 @@ public class TDBMSContext : DbContext
 		});
 		modelBuilder.Entity<TableModel>(e =>
 		{
-			e.HasKey(b => new { b.DBName, b.Name });
-			e.HasMany(b => b.Columns).WithOne().HasForeignKey(b => new { b.DBName, b.TableName });
-			e.HasMany(b => b.Rows).WithOne().HasForeignKey(b => new { b.DBName, b.TableName });
+			//e.HasKey(b => new { b.DBName, b.Name });
+			//e.HasMany(b => b.Columns).WithOne().HasForeignKey(b => new { b.DBName, b.TableName });
+			//e.HasMany(b => b.Rows).WithOne().HasForeignKey(b => new { b.DBName, b.TableName });
 			//e.HasOne<DB>().WithMany().HasForeignKey(b => b.DBId);
 		});
 		modelBuilder.Entity<ColumnModel>(e =>

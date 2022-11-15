@@ -10,5 +10,5 @@ public class DBModel
 {
 	public string Name { get; set; }
 
-	public List<TableModel> Tables { get; set; } = new List<TableModel>();
+	public virtual ICollection<TableModel> Tables { get; set; } = new List<TableModel>();
 }

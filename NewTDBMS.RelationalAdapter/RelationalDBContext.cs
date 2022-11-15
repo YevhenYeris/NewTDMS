@@ -43,7 +43,25 @@ public class RelationalDBContext : IDBContext
 	public DB LoadDB(string dBName)
 	{
 		var dBModel = _context.DBs.Where(dB => dB.Name == dBName).FirstOrDefault();
+		var tables = _context.Tables.Where(t => t.DBName == dBModel.Name);
 		var dB = new DB { Name = dBModel.Name, Tables = dBModel.Tables.Select(t => new Table { Name = t.Name }).ToList() };
+		dB.Tables = tables.Select(t => new Table() { Name = t.Name }).ToList();
+
+		foreach (var table in dB.Tables)
+		{
+			var columns = _context.Columns.Where(c => c.DBName == dB.Name && c.TableName == table.Name);
+			var rows = _context.Rows.Where(r => r.DBName == dB.Name && r.TableName == table.Name);
+
+			table.Columns = columns.Select(c => new Column() { Name = c.Name, Type = c.Type, Id = c.Id }).ToList();
+			table.Rows = rows.Select(r => new Row() { Id = r.Id }).ToList();
+
+			foreach (var row in table.Rows)
+			{
+				var values = _context.RowValues.Where(v => v.RowId == row.Id && v.DBName == dB.Name && v.TableName == table.Name);
+				row.Values = values.Select(v => v.Value).ToList();
+			}
+		}
+
 		DBs.Add(dB);
 		return dB;
 	}
@@ -61,7 +79,8 @@ public class RelationalDBContext : IDBContext
 			AddDB(dBName);
 		}
 
-		SaveDBs();
+		_context.SaveChanges();
+		//SaveDBs();
 	}
 
 	private void AddDB(string dBName)
@@ -84,15 +103,16 @@ public class RelationalDBContext : IDBContext
 
 				foreach(var column in table.Columns)
 				{
-					if (_context.Columns.Where(c => c.DBName == dB.Name && c.TableName == table.Name && c.Name == column.Name).Any())
+					if (_context.Columns.Where(c => c.Id == column.Id && c.DBName == dB.Name && c.TableName == table.Name && c.Name == column.Name).Any())
 					{
-						var columnModel = _context.Columns.Where(c => c.DBName == dB.Name && c.TableName == table.Name && c.Name == column.Name).FirstOrDefault();
+						var columnModel = _context.Columns.Where(c => c.Id == column.Id && c.DBName == dB.Name && c.TableName == table.Name && c.Name == column.Name).FirstOrDefault();
 						columnModel.Name = column.Name;
 						columnModel.Type = column.Type;
 					}
 					else
 					{
 						var columnModel = new ColumnModel { DBName = dB.Name, TableName = table.Name, Name = column.Name, Type = column.Type };
+						tableModel.Columns.Add(columnModel);
 					}
 				}
 
@@ -107,6 +127,7 @@ public class RelationalDBContext : IDBContext
 					{
 						var rowModel = new RowModel { DBName = dB.Name, TableName = table.Name };
 						rowModel.Values = row.Values.Select(v => new RowValueModel { DBName = dB.Name, TableName = table.Name, Value = v }).ToList();
+						tableModel.Rows.Add(rowModel);
 					}
 				}
 			}
@@ -131,6 +152,8 @@ public class RelationalDBContext : IDBContext
 						Value = v
 					}).ToList()
 				}).ToList();
+
+				dBModel.Tables.Add(tableModel);
 			}
 		}
 		//remove tables that dont exist
