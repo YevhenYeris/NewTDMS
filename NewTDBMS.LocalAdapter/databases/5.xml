@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DB>
+  <Name>TestDB</Name>
+  <Table>
+    <Name>TestTable</Name>
+    <Column>
+      <Name>TestColumn</Name>
+      <Type>string</Type>
+    </Column>
+    <Row>
+      <Id>0</Id>
+      <Item>string</Item>
+    </Row>
+  </Table>
+</DB>

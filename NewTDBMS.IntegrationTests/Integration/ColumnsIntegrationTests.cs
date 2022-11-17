@@ -23,9 +23,9 @@ public class ColumnsIntegrationTests : IntegrationTestBase
         // Act
         var response = client.ColumnExists(new ColumnExistsRequest()
         {
-            DBName = "NewDB",
-            TableName = "NewTable",
-            ColumnName = "NewColumn",
+            DBName = "TestDB",
+            TableName = "TestTable",
+            ColumnName = "TestColumn",
         });
 
         // Assert
@@ -49,23 +49,4 @@ public class ColumnsIntegrationTests : IntegrationTestBase
         // Assert
         Assert.False(response.ColumnExists);
     }
-
-    //[Fact]
-    //public async Task RenameColumn_ValidData_RenamesColumn()
-    //{
-    //    // Arrange
-    //    var client = new Columns.ColumnsClient(Channel);
-
-    //    // Act
-    //    await client.RenameColumnAsync(new RenameColumnRequest()
-    //    {
-    //        DBName = "NewDB",
-    //        TableName = "NewTable",
-    //        ColumnName = "NewColumn",
-    //        NewName = "NewColumn1"
-    //    });
-
-    //    // Assert
-    //    // Column renamed
-    //}
 }

@@ -123,9 +123,13 @@ public class LocalDBContext : IDBContext
 
 			if (!path.Any())
 			{
-				path = $"./databases/{_dBsCount}.xml";
+				path = $"databases\\{_dBsCount}.xml";
 				_databases.Add(dB.Name, path);
+						path = _databasesPath + path;
+
 			}
+
+
 
 			var dBEl = new XElement("DB",
 						new XElement("Name", dB.Name)/*,

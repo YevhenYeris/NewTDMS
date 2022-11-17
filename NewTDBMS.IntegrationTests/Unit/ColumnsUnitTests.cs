@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using AutoFixture.Xunit2;
+using Moq;
 using NewTDBMS.gRPC.Services;
 using NewTDBMS.Service;
 
@@ -44,13 +45,15 @@ public class ColumnsUnitTests
         Assert.False(response.ColumnExists);
     }
 
-    public async Task RenameColumn_ExistsCalledNeverRenameCalledOnce()
+    [Theory]
+    [AutoData]
+    public void RenameColumn_ExistsCalledNeverRenameCalledOnce(
+        string dBName,
+        string tableName,
+        string oldColumnName,
+        string newColumnName)
     {
         // Arrange
-        var dBName = "TestDB";
-        var tableName = "TestTable";
-        var oldColumnName = "TestColumnOld";
-        var newColumnName = "TestColumnNew";
         var mockService = new Mock<ITDBMSService>();
         var service = new ColumnService(mockService.Object);
 

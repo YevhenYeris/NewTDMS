@@ -42,4 +42,15 @@
       <Item>123</Item>
     </Row>
   </Table>
+  <Table>
+    <Name>NewTable</Name>
+    <Column>
+      <Name>NewColumn</Name>
+      <Type>string</Type>
+    </Column>
+    <Row>
+      <Id>0</Id>
+      <Item>string</Item>
+    </Row>
+  </Table>
 </DB>

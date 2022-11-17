@@ -2,3 +2,5 @@ NewDB ./databases/0.xml
 SecondDB ./databases/1.xml
 SecondDB1 ./databases/2.xml
 123 ./databases/3.xml
+sdfghj databases\4.xml
+TestDB databases\5.xml
